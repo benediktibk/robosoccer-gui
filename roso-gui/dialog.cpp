@@ -11,12 +11,12 @@ Dialog::Dialog() :
 	m_scene(new QGraphicsScene)
 {
 	m_ui->setupUi(this);
-	m_ui->graphicsView->setScene(m_scene);
+	m_ui->viewField->setScene(m_scene);
 	QRectF playField(QPointF(-145,-90),QPointF(145,90));
 	QRectF playField2(QPointF(-145/2,-90/2),QPointF(145/2,90/2));
 	m_scene->addRect(playField);
 	m_scene->addRect(playField2);
-	m_ui->graphicsView->fitInView(m_scene->sceneRect(),Qt::KeepAspectRatio);
+	m_ui->viewField->fitInView(m_scene->sceneRect(),Qt::KeepAspectRatio);
 	//fitWholeAreaInView();
 }
 
@@ -53,9 +53,9 @@ unsigned int Dialog::getPort() const
 
 void Dialog::fitWholeAreaInView()
 {
-	double scaleX = m_ui->graphicsView->width()/m_scene->sceneRect().width();
-	double scaleY = m_ui->graphicsView->height()/m_scene->sceneRect().height();
+	double scaleX = m_ui->viewField->width()/m_scene->sceneRect().width();
+	double scaleY = m_ui->viewField->height()/m_scene->sceneRect().height();
 	double scaleMax = min(scaleX,scaleY);
-	m_ui->graphicsView->scale(scaleMax, scaleMax);
+	m_ui->viewField->scale(scaleMax, scaleMax);
 }
 
