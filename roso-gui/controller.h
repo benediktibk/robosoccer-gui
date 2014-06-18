@@ -5,6 +5,7 @@
 
 class View;
 class Model;
+class Connection;
 
 class Controller :
 		public QObject
@@ -12,15 +13,19 @@ class Controller :
 	Q_OBJECT
 
 public:
-	Controller(View &view, Model &model);
+	Controller(View &view, Model &model, Connection &connection);
 	virtual ~Controller();
 
 public slots:
-	void appendLogMessages(QString const &message);
+	void appendLogMessages(QString message);
+	void connectionEstablished();
+	void connectionLost();
+	void open();
 
 private:
 	View &m_view;
 	Model &m_model;
+	Connection &m_connection;
 };
 
 #endif

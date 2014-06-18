@@ -25,12 +25,18 @@ public:
 	QString getIpAdress() const;
 	unsigned int getPort() const;
 
+signals:
+	void connectPressed();
+
 protected:
 	virtual void resizeEvent(QResizeEvent *);
 	virtual void showEvent(QShowEvent *event);
 
 private:
 	void fitWholeAreaInView();
+
+private slots:
+	void connectPressedInternal();
 
 private:
 	Ui::Dialog *m_ui;

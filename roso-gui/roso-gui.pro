@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,18 +13,20 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    robot.cpp \
-    obstacle.cpp \
-    model.cpp \
-    view.cpp \
-    controller.cpp
+	robot.cpp \
+	obstacle.cpp \
+	model.cpp \
+	view.cpp \
+	controller.cpp \
+	connection.cpp
 
 
 HEADERS  += \
-    robot.h \
-    obstacle.h \
-    model.h \
-    view.h \
-    controller.h
+	robot.h \
+	obstacle.h \
+	model.h \
+	view.h \
+	controller.h \
+	connection.h
 
 FORMS    += dialog.ui
