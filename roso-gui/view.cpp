@@ -1,11 +1,11 @@
-#include "dialog.h"
+#include "view.h"
 #include "ui_dialog.h"
 #include <QRectF>
 #include <algorithm>
 
 using namespace std;
 
-Dialog::Dialog() :
+View::View() :
 	QDialog(),
 	m_ui(new Ui::Dialog),
 	m_scene(new QGraphicsScene)
@@ -16,7 +16,7 @@ Dialog::Dialog() :
 	m_scene->addRect(playField);
 }
 
-Dialog::~Dialog()
+View::~View()
 {
 	delete m_ui;
 	m_ui = 0;
@@ -24,7 +24,7 @@ Dialog::~Dialog()
 	m_scene = 0;
 }
 
-void Dialog::setStatusConnected(bool isConnected)
+void View::setStatusConnected(bool isConnected)
 {
 	if(isConnected)
 		m_ui->labelConnectStatus->setText(QString("Connected"));
@@ -32,32 +32,32 @@ void Dialog::setStatusConnected(bool isConnected)
 		m_ui->labelConnectStatus->setText(QString("Disconnected"));
 }
 
-void Dialog::appendPlainText(QString plainText)
+void View::appendPlainText(QString plainText)
 {
 	m_ui->plainTextEditLog->appendPlainText(plainText);
 }
 
-QString Dialog::getIpAdress() const
+QString View::getIpAdress() const
 {
 	return m_ui->plainTextEditIp->toPlainText();
 }
 
-unsigned int Dialog::getPort() const
+unsigned int View::getPort() const
 {
 	return m_ui->plainTextEditPort->toPlainText().toUInt();
 }
 
-void Dialog::resizeEvent(QResizeEvent *)
+void View::resizeEvent(QResizeEvent *)
 {
 	fitWholeAreaInView();
 }
 
-void Dialog::showEvent(QShowEvent *)
+void View::showEvent(QShowEvent *)
 {
 	fitWholeAreaInView();
 }
 
-void Dialog::fitWholeAreaInView()
+void View::fitWholeAreaInView()
 {
 	QRectF sceneRect = m_scene->sceneRect();
 	sceneRect.setWidth(sceneRect.width()*1.1);

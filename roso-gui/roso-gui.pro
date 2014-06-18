@@ -13,15 +13,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        dialog.cpp \
     robot.cpp \
     obstacle.cpp \
-    model.cpp
+    model.cpp \
+    view.cpp
 
 
-HEADERS  += dialog.h \
+HEADERS  += \
     robot.h \
     obstacle.h \
-    model.h
+    model.h \
+    view.h
 
 FORMS    += dialog.ui

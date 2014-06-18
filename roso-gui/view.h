@@ -1,5 +1,5 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef VIEW_H
+#define VIEW_H
 
 #include <QDialog>
 #include <QString>
@@ -11,14 +11,14 @@ namespace Ui
 	class Dialog;
 }
 
-class Dialog :
+class View :
 		public QDialog
 {
 	Q_OBJECT
 
 public:
-	Dialog();
-	~Dialog();
+	View();
+	~View();
 
 	void setStatusConnected(bool isConnected);
 	void appendPlainText(QString plainText);
