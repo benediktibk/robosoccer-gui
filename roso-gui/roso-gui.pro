@@ -16,13 +16,15 @@ SOURCES += main.cpp\
     robot.cpp \
     obstacle.cpp \
     model.cpp \
-    view.cpp
+    view.cpp \
+    controller.cpp
 
 
 HEADERS  += \
     robot.h \
     obstacle.h \
     model.h \
-    view.h
+    view.h \
+    controller.h
 
 FORMS    += dialog.ui

@@ -2,11 +2,15 @@
 #define MODEL_H
 
 #include <vector>
+#include <QObject>
 #include "obstacle.h"
 #include "robot.h"
 
-class Model
+class Model :
+		public QObject
 {
+	Q_OBJECT
+
 public:
 	Model();
 

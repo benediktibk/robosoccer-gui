@@ -18,10 +18,10 @@ class View :
 
 public:
 	View();
-	~View();
+	virtual ~View();
 
 	void setStatusConnected(bool isConnected);
-	void appendPlainText(QString plainText);
+	void appendLogMessage(QString const &plainText);
 	QString getIpAdress() const;
 	unsigned int getPort() const;
 

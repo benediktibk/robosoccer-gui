@@ -6,7 +6,6 @@
 using namespace std;
 
 View::View() :
-	QDialog(),
 	m_ui(new Ui::Dialog),
 	m_scene(new QGraphicsScene)
 {
@@ -32,7 +31,7 @@ void View::setStatusConnected(bool isConnected)
 		m_ui->labelConnectStatus->setText(QString("Disconnected"));
 }
 
-void View::appendPlainText(QString plainText)
+void View::appendLogMessage(QString const &plainText)
 {
 	m_ui->plainTextEditLog->appendPlainText(plainText);
 }
