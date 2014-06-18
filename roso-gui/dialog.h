@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <list>
-#include <QGraphicsItem>
+#include <QGraphicsScene>
 
 namespace Ui {
 class Dialog;
@@ -23,7 +23,10 @@ public:
 	QString getIpAdress() const;
 	unsigned int getPort() const;
 private:
+	void fitWholeAreaInView();
+private:
 	Ui::Dialog *ui;
+	QGraphicsScene *m_scene;
 };
 
 #endif // DIALOG_H
