@@ -1,10 +1,11 @@
 #include "robot.h"
 
-Robot::Robot(const std::vector<QPoint> &route, double radius):
+using namespace std;
+
+Robot::Robot(const vector<QPoint> &route, double radius):
 	m_route(route),
 	m_radius(radius)
-{
-}
+{ }
 
 Obstacle Robot::getOwnRobotObstacle() const
 {
@@ -12,7 +13,7 @@ Obstacle Robot::getOwnRobotObstacle() const
 	return Obstacle(ownPosition,m_radius);
 }
 
-std::vector<QPoint> Robot::getRoute() const
+vector<QPoint> Robot::getRoute() const
 {
 	return m_route;
 }

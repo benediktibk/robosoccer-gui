@@ -3,9 +3,7 @@
 Obstacle::Obstacle(const QPoint &position, double radius):
 	m_position(position),
 	m_radius(radius)
-{
-}
-
+{ }
 
 double Obstacle::getRadius() const
 {

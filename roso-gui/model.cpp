@@ -1,11 +1,12 @@
 #include "model.h"
 #include <QPoint>
 
+using namespace std;
+
 Model::Model():
-	m_robotOne(Robot(std::vector<QPoint>(),0.0)),
-	m_robotTwo(Robot(std::vector<QPoint>(),0.0))
-{
-}
+	m_robotOne(Robot(vector<QPoint>(), 0)),
+	m_robotTwo(Robot(vector<QPoint>(), 0))
+{ }
 
 void Model::setRobotOne(const Robot &robotOne)
 {
@@ -17,7 +18,7 @@ void Model::setRobotTwo(const Robot &robotTwo)
 	m_robotTwo = robotTwo;
 }
 
-void Model::setObstacles(const std::vector<Obstacle> &obstacleVector)
+void Model::setObstacles(const vector<Obstacle> &obstacleVector)
 {
 	m_obstacles = obstacleVector;
 }
