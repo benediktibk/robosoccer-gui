@@ -2,18 +2,21 @@
 
 using namespace std;
 
-Robot::Robot(const vector<QPoint> &route, double radius):
+Robot::Robot()
+{ }
+
+Robot::Robot(const vector<QPointF> &route, double radius):
 	m_route(route),
 	m_radius(radius)
 { }
 
 Obstacle Robot::getOwnRobotObstacle() const
 {
-	QPoint ownPosition = m_route.front();
-	return Obstacle(ownPosition,m_radius);
+	QPointF ownPosition = m_route.front();
+	return Obstacle(ownPosition, m_radius);
 }
 
-vector<QPoint> Robot::getRoute() const
+vector<QPointF> Robot::getRoute() const
 {
 	return m_route;
 }

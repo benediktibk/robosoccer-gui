@@ -8,14 +8,15 @@
 class Robot
 {
 public:
-	Robot(const std::vector<QPoint> &route, double radius);
+	Robot();
+	Robot(const std::vector<QPointF> &route, double radius);
 
 	Obstacle getOwnRobotObstacle() const;
 	double getOwnRadius() const;
-	std::vector<QPoint> getRoute() const;
+	std::vector<QPointF> getRoute() const;
 
 private:
-	std::vector<QPoint> m_route;
+	std::vector<QPointF> m_route;
 	double m_radius;
 };
 

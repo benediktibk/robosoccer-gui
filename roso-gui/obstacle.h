@@ -6,13 +6,14 @@
 class Obstacle
 {
 public:
-	Obstacle(const QPoint &position, double radius);
+	Obstacle();
+	Obstacle(const QPointF &position, double radius);
 
 	double getRadius() const;
-	QPoint getPosition() const;
+	QPointF getPosition() const;
 
 private:
-	QPoint m_position;
+	QPointF m_position;
 	double m_radius;
 };
 

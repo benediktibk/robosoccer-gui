@@ -1,12 +1,6 @@
 #include "model.h"
-#include <QPoint>
 
 using namespace std;
-
-Model::Model():
-	m_robotOne(Robot(vector<QPoint>(), 0)),
-	m_robotTwo(Robot(vector<QPoint>(), 0))
-{ }
 
 void Model::setRobotOne(const Robot &robotOne)
 {

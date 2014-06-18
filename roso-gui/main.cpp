@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 	View view;
 	Model model;
-	Connection connection;
+	Connection connection(model);
 	Controller controller(view, model, connection);
 
 	view.show();
