@@ -25,6 +25,10 @@ public:
 	QString getIpAdress() const;
 	unsigned int getPort() const;
 
+protected:
+	virtual void resizeEvent(QResizeEvent *);
+	virtual void showEvent(QShowEvent *event);
+
 private:
 	void fitWholeAreaInView();
 

@@ -1,7 +1,7 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 #include <QRectF>
-#include <math.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,12 +12,8 @@ Dialog::Dialog() :
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
-	QRectF playField(QPointF(-145,-90),QPointF(145,90));
-	QRectF playField2(QPointF(-145/2,-90/2),QPointF(145/2,90/2));
+	QRectF playField(QPointF(-1.45,-0.9), QPointF(1.45, 0.9));
 	m_scene->addRect(playField);
-	m_scene->addRect(playField2);
-	m_ui->viewField->fitInView(m_scene->sceneRect(),Qt::KeepAspectRatio);
-	//fitWholeAreaInView();
 }
 
 Dialog::~Dialog()
@@ -51,11 +47,21 @@ unsigned int Dialog::getPort() const
 	return m_ui->plainTextEditPort->toPlainText().toUInt();
 }
 
+void Dialog::resizeEvent(QResizeEvent *)
+{
+	fitWholeAreaInView();
+}
+
+void Dialog::showEvent(QShowEvent *)
+{
+	fitWholeAreaInView();
+}
+
 void Dialog::fitWholeAreaInView()
 {
-	double scaleX = m_ui->viewField->width()/m_scene->sceneRect().width();
-	double scaleY = m_ui->viewField->height()/m_scene->sceneRect().height();
-	double scaleMax = min(scaleX,scaleY);
-	m_ui->viewField->scale(scaleMax, scaleMax);
+	QRectF sceneRect = m_scene->sceneRect();
+	sceneRect.setWidth(sceneRect.width()*1.1);
+	sceneRect.setHeight(sceneRect.height()*1.1);
+	m_ui->viewField->fitInView(sceneRect, Qt::KeepAspectRatio);
 }
 
