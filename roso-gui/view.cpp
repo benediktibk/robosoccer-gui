@@ -35,9 +35,18 @@ void View::setStatusConnected(bool isConnected)
 		m_ui->labelConnectStatus->setText(QString("Disconnected"));
 }
 
-void View::appendLogMessage(QString const &plainText)
+void View::appendLogMessage(QString const &message)
 {
-	m_ui->plainTextEditLog->appendPlainText(plainText);
+	QPlainTextEdit &edit = *(m_ui->plainTextEditLog);
+	QString plainText = edit.toPlainText() + message;
+	int lineFeedCount = plainText.count('\n');
+	int currentPosition = 0;
+
+	for (int i = 0; i < lineFeedCount - 100; ++i)
+		currentPosition = plainText.indexOf('\n', currentPosition) + 1;
+
+	plainText = plainText.mid(currentPosition);
+	edit.setPlainText(plainText);
 }
 
 QString View::getIpAdress() const
