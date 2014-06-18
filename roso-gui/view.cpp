@@ -1,6 +1,7 @@
 #include "view.h"
 #include "ui_dialog.h"
 #include <QRectF>
+#include <QColor>
 #include <algorithm>
 
 using namespace std;
@@ -13,6 +14,7 @@ View::View() :
 	m_ui->viewField->setScene(m_scene);
 	QRectF playField(QPointF(-1.45,-0.9), QPointF(1.45, 0.9));
 	m_scene->addRect(playField);
+	m_ui->viewField->setBackgroundBrush(QBrush(Qt::white));
 }
 
 View::~View()
