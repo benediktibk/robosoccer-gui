@@ -21,6 +21,16 @@ void Connection::open(const QString &ip, unsigned int port)
 	m_socket->connectToHost(ip, port, QIODevice::ReadOnly);
 }
 
+void Connection::close()
+{
+	m_socket->close();
+}
+
+bool Connection::isConnected() const
+{
+	return m_socket->isOpen();
+}
+
 void Connection::connectionEstablishedInternal()
 {
 	emit connectionEstablished();

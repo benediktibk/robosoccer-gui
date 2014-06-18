@@ -20,7 +20,7 @@ public slots:
 	void appendLogMessages(QString message);
 	void connectionEstablished();
 	void connectionLost();
-	void open();
+	void connectPressed();
 
 private:
 	View &m_view;

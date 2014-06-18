@@ -30,9 +30,15 @@ View::~View()
 void View::setStatusConnected(bool isConnected)
 {
 	if(isConnected)
+	{
 		m_ui->labelConnectStatus->setText(QString("Connected"));
+		m_ui->pushButtonConnect->setText(QString("Disconnect"));
+	}
 	else
+	{
 		m_ui->labelConnectStatus->setText(QString("Disconnected"));
+		m_ui->pushButtonConnect->setText(QString("Connect"));
+	}
 }
 
 void View::appendLogMessage(QString const &message)

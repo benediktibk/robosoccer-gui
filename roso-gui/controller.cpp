@@ -13,7 +13,7 @@ Controller::Controller(View &view, Model &model, Connection &connection) :
 	QObject::connect(&m_connection, SIGNAL(dataArrived(QString)), this, SLOT(appendLogMessages(QString)));
 	QObject::connect(&m_connection, SIGNAL(connectionEstablished()), this, SLOT(connectionEstablished()));
 	QObject::connect(&m_connection, SIGNAL(connectionLost()), this, SLOT(connectionLost()));
-	QObject::connect(&m_view, SIGNAL(connectPressed()), this, SLOT(open()));
+	QObject::connect(&m_view, SIGNAL(connectPressed()), this, SLOT(connectPressed()));
 }
 
 Controller::~Controller()
@@ -34,9 +34,14 @@ void Controller::connectionLost()
 	m_view.setStatusConnected(false);
 }
 
-void Controller::open()
+void Controller::connectPressed()
 {
-	QString ip = m_view.getIpAdress();
-	unsigned int port = m_view.getPort();
-	m_connection.open(ip, port);
+	if (m_connection.isConnected())
+		m_connection.close();
+	else
+	{
+		QString ip = m_view.getIpAdress();
+		unsigned int port = m_view.getPort();
+		m_connection.open(ip, port);
+	}
 }

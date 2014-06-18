@@ -15,6 +15,8 @@ public:
 	virtual ~Connection();
 
 	void open(QString const &ip, unsigned int port);
+	void close();
+	bool isConnected() const;
 
 signals:
 	void dataArrived(QString data);
