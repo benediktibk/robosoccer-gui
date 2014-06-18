@@ -3,6 +3,7 @@
 #include <QRectF>
 #include <QColor>
 #include <algorithm>
+#include <QScrollBar>
 
 using namespace std;
 
@@ -53,6 +54,7 @@ void View::appendLogMessage(QString const &message)
 
 	plainText = plainText.mid(currentPosition);
 	edit.setPlainText(plainText);
+	edit.verticalScrollBar()->setValue(edit.verticalScrollBar()->maximum());
 }
 
 QString View::getIpAdress() const
