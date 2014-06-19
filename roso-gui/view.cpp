@@ -33,11 +33,13 @@ void View::setStatusConnected(bool isConnected)
 	if(isConnected)
 	{
 		m_ui->labelConnectStatus->setText(QString("Connected"));
+		m_ui->labelConnectStatus->setStyleSheet("QLabel { color : green; }");
 		m_ui->pushButtonConnect->setText(QString("Disconnect"));
 	}
 	else
 	{
 		m_ui->labelConnectStatus->setText(QString("Disconnected"));
+		m_ui->labelConnectStatus->setStyleSheet("QLabel { color : red; }");
 		m_ui->pushButtonConnect->setText(QString("Connect"));
 	}
 }
