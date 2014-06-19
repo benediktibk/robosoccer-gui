@@ -192,3 +192,4 @@ void View::test()
 	obstacles.push_back(Obstacle(QPointF(-0.6,-0.4),0.025));
 	drawObstacles(obstacles);
 }
+

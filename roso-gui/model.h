@@ -16,6 +16,8 @@ public:
 	void setRobotTwo(const Robot &robotTwo);
 	void setObstacles(const std::vector<Obstacle> &obstacleVector);
 	std::vector<Obstacle> getObstacles() const;
+	Robot getRobotOne() const;
+	Robot getRobotTwo() const;
 
 private:
 	Robot m_robotOne;
