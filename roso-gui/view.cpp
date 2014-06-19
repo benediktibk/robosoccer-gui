@@ -131,6 +131,20 @@ void View::drawRobot(const Robot &robot)
 	m_scene->addEllipse(robotRect, QPen(Qt::red), QBrush(Qt::red) );
 }
 
+void View::drawObstacles(const std::vector<Obstacle> &obstacles)
+{
+	for(vector<Obstacle>::const_iterator iterator = obstacles.begin(); iterator != obstacles.end(); ++iterator)
+	{
+		Obstacle currentObstacle = *iterator;
+		QPointF currentObstaclePosition = currentObstacle.getPosition();
+		double currentObstacleRadius = currentObstacle.getRadius();
+		QPointF topLeft = currentObstaclePosition - QPointF(currentObstacleRadius,currentObstacleRadius);
+		QPointF bottomRight = currentObstaclePosition + QPointF(currentObstacleRadius,currentObstacleRadius);
+		QRectF currentObstacleRect(worldPointToPixlePoint(topLeft),worldPointToPixlePoint(bottomRight));
+		m_scene->addEllipse(currentObstacleRect, QPen(Qt::black), QBrush(Qt::red));
+	}
+}
+
 void View::connectPressedInternal()
 {
 	emit connectPressed();
