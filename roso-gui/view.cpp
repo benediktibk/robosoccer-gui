@@ -141,7 +141,7 @@ void View::drawObstacles(const std::vector<Obstacle> &obstacles)
 		QPointF topLeft = currentObstaclePosition - QPointF(currentObstacleRadius,currentObstacleRadius);
 		QPointF bottomRight = currentObstaclePosition + QPointF(currentObstacleRadius,currentObstacleRadius);
 		QRectF currentObstacleRect(worldPointToPixlePoint(topLeft),worldPointToPixlePoint(bottomRight));
-		m_scene->addEllipse(currentObstacleRect, QPen(Qt::black), QBrush(Qt::red));
+		m_scene->addEllipse(currentObstacleRect, QPen(Qt::red), QBrush(Qt::black));
 	}
 }
 
@@ -159,4 +159,10 @@ void View::test()
 	route.push_back(QPointF(-1,0));
 	Robot robot(route,0.05);
 	drawRobot(robot);
+	vector<Obstacle> obstacles;
+	obstacles.push_back(Obstacle(QPointF(1.2,0),0.05));
+	obstacles.push_back(Obstacle(QPointF(1.2,0.5),0.05));
+	obstacles.push_back(Obstacle(QPointF(-0.9,0.6),0.05));
+	obstacles.push_back(Obstacle(QPointF(-0.6,-0.4),0.025));
+	drawObstacles(obstacles);
 }
