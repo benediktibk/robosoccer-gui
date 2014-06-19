@@ -7,6 +7,8 @@
 #include <QPolygonF>
 #include <QPainterPath>
 
+
+#include <unistd.h>
 using namespace std;
 
 View::View() :
@@ -16,6 +18,9 @@ View::View() :
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
 	drawPitch();
+
+	test(); // To be removed
+	clearScene(); // To be removed
 	test(); // To be removed
 
 	QObject::connect(m_ui->pushButtonConnect, SIGNAL(clicked()), this, SLOT(connectPressedInternal()));
@@ -149,6 +154,12 @@ void View::drawPitch()
 	roundedRectangle.addRoundedRect(playField,worldToPixel(0.3),worldToPixel(0.3));
 	m_scene->addPath(roundedRectangle,QPen(Qt::black),QBrush(Qt::white));
 	m_ui->viewField->setBackgroundBrush(QBrush(QColor(20,20,20,180)));
+}
+
+void View::clearScene()
+{
+	m_scene->clear();
+	drawPitch();
 }
 
 void View::connectPressedInternal()

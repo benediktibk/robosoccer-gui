@@ -44,6 +44,7 @@ private:
 	void drawRobot(const Robot &robot);
 	void drawObstacles(const std::vector<Obstacle> &obstacles);
 	void drawPitch();
+	void clearScene();
 private slots:
 	void connectPressedInternal();
 
