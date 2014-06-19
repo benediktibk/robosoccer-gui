@@ -15,11 +15,13 @@ View::View() :
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
+	QPainterPath roundedRectangle;
 	QRectF playField(worldPointToPixlePoint(QPointF(-1.45,-0.9)),worldPointToPixlePoint(QPointF(1.45, 0.9)));
-	m_scene->addRect(playField);
+	roundedRectangle.addRoundedRect(playField,worldToPixel(0.3),worldToPixel(0.3));
+	m_scene->addPath(roundedRectangle);
 	m_ui->viewField->setBackgroundBrush(QBrush(Qt::white));
 
-	test();
+	test(); // To be removed
 
 	QObject::connect(m_ui->pushButtonConnect, SIGNAL(clicked()), this, SLOT(connectPressedInternal()));
 }
