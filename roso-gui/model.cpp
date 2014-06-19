@@ -16,3 +16,8 @@ void Model::setObstacles(const vector<Obstacle> &obstacleVector)
 {
 	m_obstacles = obstacleVector;
 }
+
+std::vector<Obstacle> Model::getObstacles() const
+{
+	return m_obstacles;
+}

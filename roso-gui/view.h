@@ -9,6 +9,7 @@
 #include "robot.h"
 #include "obstacle.h"
 #include <vector>
+#include "model.h"
 #define SCALE_FACTOR 200
 
 namespace Ui
@@ -31,6 +32,7 @@ public:
 	unsigned int getPort() const;
 	double worldToPixel(double worldCoordinate);
 	QPointF worldPointToPixlePoint(const QPointF &worldPoint);
+	//void updateGui(const Model &model);
 	void test();
 signals:
 	void connectPressed();
