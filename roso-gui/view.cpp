@@ -15,12 +15,7 @@ View::View() :
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
-	QPainterPath roundedRectangle;
-	QRectF playField(worldPointToPixlePoint(QPointF(-1.45,-0.9)),worldPointToPixlePoint(QPointF(1.45, 0.9)));
-	roundedRectangle.addRoundedRect(playField,worldToPixel(0.3),worldToPixel(0.3));
-	m_scene->addPath(roundedRectangle);
-	m_ui->viewField->setBackgroundBrush(QBrush(Qt::white));
-
+	drawPitch();
 	test(); // To be removed
 
 	QObject::connect(m_ui->pushButtonConnect, SIGNAL(clicked()), this, SLOT(connectPressedInternal()));
@@ -145,6 +140,15 @@ void View::drawObstacles(const std::vector<Obstacle> &obstacles)
 		QRectF currentObstacleRect(worldPointToPixlePoint(topLeft),worldPointToPixlePoint(bottomRight));
 		m_scene->addEllipse(currentObstacleRect, QPen(Qt::red), QBrush(Qt::black));
 	}
+}
+
+void View::drawPitch()
+{
+	QPainterPath roundedRectangle;
+	QRectF playField(worldPointToPixlePoint(QPointF(-1.45,-0.9)),worldPointToPixlePoint(QPointF(1.45, 0.9)));
+	roundedRectangle.addRoundedRect(playField,worldToPixel(0.3),worldToPixel(0.3));
+	m_scene->addPath(roundedRectangle,QPen(Qt::black),QBrush(Qt::white));
+	m_ui->viewField->setBackgroundBrush(QBrush(QColor(20,20,20,180)));
 }
 
 void View::connectPressedInternal()

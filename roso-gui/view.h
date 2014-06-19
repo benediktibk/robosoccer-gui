@@ -9,7 +9,7 @@
 #include "robot.h"
 #include "obstacle.h"
 #include <vector>
-#define SCALE_FACTOR 100
+#define SCALE_FACTOR 200
 
 namespace Ui
 {
@@ -43,6 +43,7 @@ private:
 	void fitWholeAreaInView();
 	void drawRobot(const Robot &robot);
 	void drawObstacles(const std::vector<Obstacle> &obstacles);
+	void drawPitch();
 private slots:
 	void connectPressedInternal();
 
