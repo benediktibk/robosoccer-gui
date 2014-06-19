@@ -6,6 +6,8 @@
 #include <list>
 #include <QGraphicsScene>
 
+#define SCALE_FACTOR 100
+
 namespace Ui
 {
 	class Dialog;
@@ -24,6 +26,7 @@ public:
 	void appendLogMessage(QString const &plainText);
 	QString getIpAdress() const;
 	unsigned int getPort() const;
+	double worldToPixel(double worldCoordinate);
 
 signals:
 	void connectPressed();

@@ -13,7 +13,7 @@ View::View() :
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
-	QRectF playField(QPointF(-1.45,-0.9), QPointF(1.45, 0.9));
+	QRectF playField(QPointF(worldToPixel(-1.45),worldToPixel(-0.9)), QPointF(worldToPixel(1.45), worldToPixel(0.9)));
 	m_scene->addRect(playField);
 	m_ui->viewField->setBackgroundBrush(QBrush(Qt::white));
 
@@ -69,6 +69,11 @@ unsigned int View::getPort() const
 	return m_ui->plainTextEditPort->toPlainText().toUInt();
 }
 
+double View::worldToPixel(double worldCoordinate)
+{
+	return worldCoordinate*SCALE_FACTOR;
+}
+
 void View::resizeEvent(QResizeEvent *)
 {
 	fitWholeAreaInView();
@@ -91,4 +96,3 @@ void View::connectPressedInternal()
 {
 	emit connectPressed();
 }
-
