@@ -115,19 +115,14 @@ void View::drawRobot(const Robot &robot)
 	pathPen.setJoinStyle(Qt::RoundJoin);
 
 	poly << worldPointToPixlePoint(robotPosition);
-	poly << worldPointToPixlePoint(route.at(0));
-	poly << worldPointToPixlePoint(route.at(1));
-	poly << worldPointToPixlePoint(route.at(2));
+
+	for(vector<QPointF>::const_iterator iterator = route.begin(); iterator != route.end(); ++iterator)
+	{
+		QPointF pathPoint = *iterator;
+		poly << worldPointToPixlePoint(pathPoint);
+	}
+
 	path.addPolygon(poly);
-
-	//QPolygonF poly2;
-	//poly2 << worldPointToPixlePoint(route.at(0));
-	//poly2 << worldPointToPixlePoint(route.at(1));
-
-	//path.addPolygon(poly2);
-	//m_scene->addPolygon(poly,pathPen,QBrush(Qt::transparent));
-
-
 	m_scene->addPath(path,pathPen,QBrush(Qt::transparent));
 
 	QPointF topLeft = robotPosition - QPointF(robotRadius,robotRadius);
