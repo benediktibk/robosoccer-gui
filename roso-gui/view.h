@@ -6,7 +6,9 @@
 #include <QPointF>
 #include <list>
 #include <QGraphicsScene>
-
+#include "robot.h"
+#include "obstacle.h"
+#include <vector>
 #define SCALE_FACTOR 100
 
 namespace Ui
@@ -39,6 +41,8 @@ protected:
 
 private:
 	void fitWholeAreaInView();
+	void drawRobot(const Robot &robot);
+	void drawObstacles(const std::vector<Obstacle> &obstacles);
 
 private slots:
 	void connectPressedInternal();

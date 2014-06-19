@@ -97,6 +97,16 @@ void View::fitWholeAreaInView()
 	m_ui->viewField->fitInView(sceneRect, Qt::KeepAspectRatio);
 }
 
+void View::drawRobot(const Robot &robot)
+{
+	QPointF robotPosition = robot.getOwnRobotObstacle().getPosition();
+	double robotRadius = robot.getOwnRadius();
+	QPointF topLeft = robotPosition - QPointF(robotRadius,robotRadius);
+	QPointF bottomRight = robotPosition + QPointF(robotRadius,robotRadius);
+	QRectF robotRect(topLeft,bottomRight);
+	m_scene->addEllipse(robotRect, QPen(Qt::red), QBrush(Qt::red) );
+}
+
 void View::connectPressedInternal()
 {
 	emit connectPressed();
