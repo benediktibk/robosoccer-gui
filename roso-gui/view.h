@@ -32,7 +32,7 @@ public:
 	unsigned int getPort() const;
 	double worldToPixel(double worldCoordinate);
 	QPointF worldPointToPixlePoint(const QPointF &worldPoint);
-	//void updateGui(const Model &model);
+	void updateGui(const Model &model);
 	void test();
 signals:
 	void connectPressed();

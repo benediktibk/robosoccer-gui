@@ -85,6 +85,15 @@ QPointF View::worldPointToPixlePoint(const QPointF &worldPoint)
 	return worldPoint*SCALE_FACTOR;
 }
 
+void View::updateGui(const Model &model)
+{
+	clearScene();
+	drawPitch();
+	drawRobot(model.getRobotOne());
+	drawRobot(model.getRobotTwo());
+	drawObstacles(model.getObstacles());
+}
+
 void View::resizeEvent(QResizeEvent *)
 {
 	fitWholeAreaInView();
