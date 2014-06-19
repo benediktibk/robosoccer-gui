@@ -113,6 +113,7 @@ void View::drawRobot(const Robot &robot)
 	pathPen.setWidth(worldToPixel(2*robotRadius));
 	pathPen.setColor(Qt::green);
 	pathPen.setJoinStyle(Qt::RoundJoin);
+
 	poly << worldPointToPixlePoint(robotPosition);
 	poly << worldPointToPixlePoint(route.at(0));
 	poly << worldPointToPixlePoint(route.at(1));
