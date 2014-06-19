@@ -43,7 +43,6 @@ private:
 	void fitWholeAreaInView();
 	void drawRobot(const Robot &robot);
 	void drawObstacles(const std::vector<Obstacle> &obstacles);
-
 private slots:
 	void connectPressedInternal();
 
