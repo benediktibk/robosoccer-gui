@@ -154,6 +154,11 @@ void View::drawPitch()
 	roundedRectangle.addRoundedRect(playField,worldToPixel(0.3),worldToPixel(0.3));
 	m_scene->addPath(roundedRectangle,QPen(Qt::black),QBrush(Qt::white));
 	m_ui->viewField->setBackgroundBrush(QBrush(QColor(20,20,20,180)));
+
+	QRectF goalZoneLeft(worldPointToPixlePoint(QPointF(-1.45,-0.35)), worldPointToPixlePoint(QPointF(-1.45+0.245,0.35)));
+	QRectF goalZoneRight(worldPointToPixlePoint(QPointF(1.45-0.245,-0.35)), worldPointToPixlePoint(QPointF(1.45,0.35)));
+	m_scene->addRect(goalZoneLeft,QPen(Qt::black),QBrush(QColor(150,150,150,90)));
+	m_scene->addRect(goalZoneRight,QPen(Qt::black),QBrush(QColor(150,150,150,90)));
 }
 
 void View::clearScene()
