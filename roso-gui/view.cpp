@@ -13,7 +13,7 @@ View::View() :
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
-	QRectF playField(QPointF(worldToPixel(-1.45),worldToPixel(-0.9)), QPointF(worldToPixel(1.45), worldToPixel(0.9)));
+	QRectF playField(worldPointToPixlePoint(QPointF(-1.45,-0.9)),worldPointToPixlePoint(QPointF(1.45, 0.9)));
 	m_scene->addRect(playField);
 	m_ui->viewField->setBackgroundBrush(QBrush(Qt::white));
 
@@ -72,6 +72,11 @@ unsigned int View::getPort() const
 double View::worldToPixel(double worldCoordinate)
 {
 	return worldCoordinate*SCALE_FACTOR;
+}
+
+QPointF View::worldPointToPixlePoint(const QPointF &worldPoint)
+{
+	return worldPoint*SCALE_FACTOR;
 }
 
 void View::resizeEvent(QResizeEvent *)

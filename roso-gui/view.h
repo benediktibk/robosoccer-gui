@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QString>
+#include <QPointF>
 #include <list>
 #include <QGraphicsScene>
 
@@ -27,6 +28,7 @@ public:
 	QString getIpAdress() const;
 	unsigned int getPort() const;
 	double worldToPixel(double worldCoordinate);
+	QPointF worldPointToPixlePoint(const QPointF &worldPoint);
 
 signals:
 	void connectPressed();
