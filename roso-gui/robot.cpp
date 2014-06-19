@@ -18,7 +18,9 @@ Obstacle Robot::getOwnRobotObstacle() const
 
 vector<QPointF> Robot::getRoute() const
 {
-	return m_route;
+	vector<QPointF> route = m_route;
+	route.erase(route.begin());
+	return route;
 }
 
 double Robot::getOwnRadius() const
