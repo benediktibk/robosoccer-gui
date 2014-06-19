@@ -17,6 +17,8 @@ View::View() :
 	m_scene->addRect(playField);
 	m_ui->viewField->setBackgroundBrush(QBrush(Qt::white));
 
+	test();
+
 	QObject::connect(m_ui->pushButtonConnect, SIGNAL(clicked()), this, SLOT(connectPressedInternal()));
 }
 
@@ -103,11 +105,21 @@ void View::drawRobot(const Robot &robot)
 	double robotRadius = robot.getOwnRadius();
 	QPointF topLeft = robotPosition - QPointF(robotRadius,robotRadius);
 	QPointF bottomRight = robotPosition + QPointF(robotRadius,robotRadius);
-	QRectF robotRect(topLeft,bottomRight);
+	QRectF robotRect(worldPointToPixlePoint(topLeft),worldPointToPixlePoint(bottomRight));
 	m_scene->addEllipse(robotRect, QPen(Qt::red), QBrush(Qt::red) );
 }
 
 void View::connectPressedInternal()
 {
 	emit connectPressed();
+}
+
+void View::test()
+{
+	vector<QPointF> route;
+	route.push_back(QPointF(0,0.5));
+	route.push_back(QPointF(0.5,0.5));
+	route.push_back(QPointF(1,0));
+	Robot robot(route,0.05);
+	drawRobot(robot);
 }

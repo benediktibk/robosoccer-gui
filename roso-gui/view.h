@@ -31,7 +31,7 @@ public:
 	unsigned int getPort() const;
 	double worldToPixel(double worldCoordinate);
 	QPointF worldPointToPixlePoint(const QPointF &worldPoint);
-
+	void test();
 signals:
 	void connectPressed();
 
