@@ -92,7 +92,7 @@ void Connection::parseCompleteBlock()
 	{
 		Robot robot = parseRobot(error);
 		if (!error)
-			m_model.setRobotOne(robot);
+			m_model.setRobotTwo(robot);
 	}
 
 	m_currentBlock.clear();

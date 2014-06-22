@@ -1,4 +1,5 @@
 #include "robot.h"
+#include <assert.h>
 
 using namespace std;
 
@@ -10,20 +11,23 @@ Robot::Robot(const vector<QPointF> &route, double radius):
 	m_radius(radius)
 { }
 
-Obstacle Robot::getOwnRobotObstacle() const
+bool Robot::isValid() const
 {
-	QPointF ownPosition = m_route.front();
-	return Obstacle(ownPosition, m_radius);
+	return !m_route.empty();
+}
+
+QPointF Robot::getPosition() const
+{
+	assert(isValid());
+	return m_route.front();
 }
 
 vector<QPointF> Robot::getRoute() const
 {
-	vector<QPointF> route = m_route;
-	route.erase(route.begin());
-	return route;
+	return m_route;
 }
 
-double Robot::getOwnRadius() const
+double Robot::getRadius() const
 {
 	return m_radius;
 }

@@ -11,8 +11,9 @@ public:
 	Robot();
 	Robot(const std::vector<QPointF> &route, double radius);
 
-	Obstacle getOwnRobotObstacle() const;
-	double getOwnRadius() const;
+	bool isValid() const;
+	QPointF getPosition() const;
+	double getRadius() const;
 	std::vector<QPointF> getRoute() const;
 
 private:

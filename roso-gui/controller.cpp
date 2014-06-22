@@ -98,13 +98,11 @@ void Controller::updateObstacles()
 
 void Controller::updateRobot(const Robot &robot, QGraphicsEllipseItem &robotItem)
 {
-	vector<QPointF> route = robot.getRoute();
-
-	if (route.empty())
+	if (!robot.isValid())
 		return;
 
-	QPointF position = route.front();
-	double radius = robot.getOwnRadius();
+	QPointF position = robot.getPosition();
+	double radius = robot.getRadius();
 	QRectF robotRect = getRectFrom(position, radius);
 	robotItem.setRect(robotRect);
 }
