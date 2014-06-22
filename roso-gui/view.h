@@ -4,13 +4,12 @@
 #include <QDialog>
 #include <QString>
 #include <QPointF>
-#include <list>
 #include <QGraphicsScene>
-#include "robot.h"
-#include "obstacle.h"
+#include <list>
 #include <vector>
 #include "model.h"
-#define SCALE_FACTOR 200
+#include "robot.h"
+#include "obstacle.h"
 
 namespace Ui
 {
@@ -30,10 +29,9 @@ public:
 	void appendLogMessage(QString const &plainText);
 	QString getIpAdress() const;
 	unsigned int getPort() const;
-	double worldToPixel(double worldCoordinate);
-	QPointF worldPointToPixlePoint(const QPointF &worldPoint);
 	void updateGui(const Model &model);
 	void test();
+
 signals:
 	void connectPressed();
 
@@ -47,6 +45,7 @@ private:
 	void drawObstacles(const std::vector<Obstacle> &obstacles);
 	void drawPitch();
 	void clearScene();
+
 private slots:
 	void connectPressedInternal();
 
