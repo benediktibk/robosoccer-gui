@@ -18,11 +18,6 @@ View::View() :
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
 	drawPitch();
-
-	test(); // To be removed
-	clearScene(); // To be removed
-	test(); // To be removed
-
 	QObject::connect(m_ui->pushButtonConnect, SIGNAL(clicked()), this, SLOT(connectPressedInternal()));
 }
 
@@ -75,13 +70,14 @@ unsigned int View::getPort() const
 	return m_ui->plainTextEditPort->toPlainText().toUInt();
 }
 
-void View::updateGui(const Model &model)
+void View::addItem(QGraphicsItem *item)
 {
-	clearScene();
-	drawPitch();
-	drawRobot(model.getRobotOne());
-	drawRobot(model.getRobotTwo());
-	drawObstacles(model.getObstacles());
+	m_scene->addItem(item);
+}
+
+void View::removeItem(QGraphicsItem *item)
+{
+	m_scene->removeItem(item);
 }
 
 void View::resizeEvent(QResizeEvent *)
@@ -102,50 +98,6 @@ void View::fitWholeAreaInView()
 	m_ui->viewField->fitInView(sceneRect, Qt::KeepAspectRatio);
 }
 
-void View::drawRobot(const Robot &robot)
-{
-	QPointF robotPosition = robot.getOwnRobotObstacle().getPosition();
-	double robotRadius = robot.getOwnRadius();
-
-	vector<QPointF> route = robot.getRoute();
-	QPolygonF poly;
-	QPainterPath path;
-	QPen pathPen;
-	pathPen.setWidth(2*robotRadius);
-	pathPen.setColor(QColor(0, 255, 0, 128));
-	pathPen.setJoinStyle(Qt::RoundJoin);
-
-	poly << robotPosition;
-
-	for(vector<QPointF>::const_iterator iterator = route.begin(); iterator != route.end(); ++iterator)
-	{
-		QPointF pathPoint = *iterator;
-		poly << pathPoint;
-	}
-
-	path.addPolygon(poly);
-	m_scene->addPath(path, pathPen, QBrush(Qt::transparent));
-
-	QPointF topLeft = robotPosition - QPointF(robotRadius, robotRadius);
-	QPointF bottomRight = robotPosition + QPointF(robotRadius, robotRadius);
-	QRectF robotRect(topLeft, bottomRight);
-	m_scene->addEllipse(robotRect, QPen(Qt::red), QBrush(Qt::red));
-}
-
-void View::drawObstacles(const std::vector<Obstacle> &obstacles)
-{
-	for(vector<Obstacle>::const_iterator iterator = obstacles.begin(); iterator != obstacles.end(); ++iterator)
-	{
-		Obstacle currentObstacle = *iterator;
-		QPointF currentObstaclePosition = currentObstacle.getPosition();
-		double currentObstacleRadius = currentObstacle.getRadius();
-		QPointF topLeft = currentObstaclePosition - QPointF(currentObstacleRadius, currentObstacleRadius);
-		QPointF bottomRight = currentObstaclePosition + QPointF(currentObstacleRadius, currentObstacleRadius);
-		QRectF currentObstacleRect(topLeft, bottomRight);
-		m_scene->addEllipse(currentObstacleRect, QPen(Qt::red), QBrush(Qt::black));
-	}
-}
-
 void View::drawPitch()
 {
 	QPainterPath roundedRectangle;
@@ -164,31 +116,7 @@ void View::drawPitch()
 	m_scene->addRect(goalRight, QPen(Qt::black), QBrush(QColor(150, 150, 150)));
 }
 
-void View::clearScene()
-{
-	m_scene->clear();
-	drawPitch();
-}
-
 void View::connectPressedInternal()
 {
 	emit connectPressed();
 }
-
-void View::test()
-{
-	vector<QPointF> route;
-	route.push_back(QPointF(0, 0.5));
-	route.push_back(QPointF(0.5, 0.5));
-	route.push_back(QPointF(1, 0));
-	route.push_back(QPointF(-1, 0));
-	Robot robot(route, 0.05);
-	drawRobot(robot);
-	vector<Obstacle> obstacles;
-	obstacles.push_back(Obstacle(QPointF(1.2, 0), 0.05));
-	obstacles.push_back(Obstacle(QPointF(1.2, 0.5), 0.05));
-	obstacles.push_back(Obstacle(QPointF(-0.9, 0.6), 0.05));
-	obstacles.push_back(Obstacle(QPointF(-0.6, -0.4), 0.025));
-	drawObstacles(obstacles);
-}
-

@@ -29,8 +29,8 @@ public:
 	void appendLogMessage(QString const &plainText);
 	QString getIpAdress() const;
 	unsigned int getPort() const;
-	void updateGui(const Model &model);
-	void test();
+	void addItem(QGraphicsItem *item);
+	void removeItem(QGraphicsItem *item);
 
 signals:
 	void connectPressed();
@@ -41,10 +41,7 @@ protected:
 
 private:
 	void fitWholeAreaInView();
-	void drawRobot(const Robot &robot);
-	void drawObstacles(const std::vector<Obstacle> &obstacles);
 	void drawPitch();
-	void clearScene();
 
 private slots:
 	void connectPressedInternal();

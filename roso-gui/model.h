@@ -19,6 +19,11 @@ public:
 	Robot getRobotOne() const;
 	Robot getRobotTwo() const;
 
+signals:
+	void robotOneChanged();
+	void robotTwoChanged();
+	void obstaclesChanged();
+
 private:
 	Robot m_robotOne;
 	Robot m_robotTwo;
