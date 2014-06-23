@@ -49,6 +49,7 @@ private slots:
 private:
 	Ui::Dialog *m_ui;
 	QGraphicsScene *m_scene;
+	double m_penWidth;
 };
 
 #endif

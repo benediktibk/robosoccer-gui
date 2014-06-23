@@ -13,7 +13,8 @@ using namespace std;
 
 View::View() :
 	m_ui(new Ui::Dialog),
-	m_scene(new QGraphicsScene)
+	m_scene(new QGraphicsScene),
+	m_penWidth(0.01)
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
@@ -103,17 +104,17 @@ void View::drawPitch()
 	QPainterPath roundedRectangle;
 	QRectF playField(QPointF(-1.45, -0.9), QPointF(1.45, 0.9));
 	roundedRectangle.addRoundedRect(playField, 0.3, 0.3);
-	m_scene->addPath(roundedRectangle,QPen(Qt::black),QBrush(Qt::white));
+	m_scene->addPath(roundedRectangle,QPen(Qt::black, m_penWidth),QBrush(Qt::white));
 	m_ui->viewField->setBackgroundBrush(QBrush(QColor(20, 20, 20, 180)));
 
 	QRectF goalZoneLeft(QPointF(-1.45, -0.35), QPointF(-1.45 + 0.245, 0.35));
 	QRectF goalZoneRight(QPointF(1.45 - 0.245, -0.35), QPointF(1.45, 0.35));
 	QRectF goalLeft(QPointF(-1.7, -0.2), QPointF(-1.45, 0.2));
 	QRectF goalRight(QPointF(1.45, -0.2), QPointF(1.7, 0.2));
-	m_scene->addRect(goalZoneLeft, QPen(Qt::black), QBrush(QColor(150, 150, 150)));
-	m_scene->addRect(goalZoneRight, QPen(Qt::black), QBrush(QColor(150, 150, 150)));
-	m_scene->addRect(goalLeft, QPen(Qt::black), QBrush(QColor(150, 150, 150)));
-	m_scene->addRect(goalRight, QPen(Qt::black), QBrush(QColor(150, 150, 150)));
+	m_scene->addRect(goalZoneLeft, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
+	m_scene->addRect(goalZoneRight, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
+	m_scene->addRect(goalLeft, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
+	m_scene->addRect(goalRight, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
 }
 
 void View::connectPressedInternal()
