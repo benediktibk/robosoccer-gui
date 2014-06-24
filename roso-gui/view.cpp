@@ -109,8 +109,8 @@ void View::drawPitch()
 
 	QRectF goalZoneLeft(QPointF(-1.45, -0.35), QPointF(-1.45 + 0.245, 0.35));
 	QRectF goalZoneRight(QPointF(1.45 - 0.245, -0.35), QPointF(1.45, 0.35));
-	QRectF goalLeft(QPointF(-1.7, -0.2), QPointF(-1.45, 0.2));
-	QRectF goalRight(QPointF(1.45, -0.2), QPointF(1.7, 0.2));
+	QRectF goalLeft(QPointF(-1.65, -0.2), QPointF(-1.45, 0.2));
+	QRectF goalRight(QPointF(1.45, -0.2), QPointF(1.65, 0.2));
 	m_scene->addRect(goalZoneLeft, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
 	m_scene->addRect(goalZoneRight, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
 	m_scene->addRect(goalLeft, QPen(Qt::black, m_penWidth), QBrush(QColor(150, 150, 150)));
