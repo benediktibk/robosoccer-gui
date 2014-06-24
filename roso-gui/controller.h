@@ -32,7 +32,7 @@ public slots:
 	void updateObstacles();
 
 private:
-	void updateRobot(Robot const &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem &robotPathItem);
+	QGraphicsPathItem *updateRobot(Robot const &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem *robotPathItem);
 	void updateObstacleCount(size_t desiredCount);
 	QRectF getRectFrom(QPointF const &position, double radius);
 

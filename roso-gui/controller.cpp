@@ -13,8 +13,8 @@ Controller::Controller(View &view, Model &model, Connection &connection) :
 	m_connection(connection),
 	m_robotOne(new QGraphicsEllipseItem()),
 	m_robotTwo(new QGraphicsEllipseItem()),
-	m_pathRobotOne(new QGraphicsPathItem()),
-	m_pathRobotTwo(new QGraphicsPathItem()),
+	m_pathRobotOne(0),
+	m_pathRobotTwo(0),
 	m_penWidth(0.01)
 {
 	QObject::connect(&m_connection, SIGNAL(dataArrived(QString)), this, SLOT(appendLogMessages(QString)));
@@ -29,14 +29,12 @@ Controller::Controller(View &view, Model &model, Connection &connection) :
 	m_robotOne->setBrush(QBrush(Qt::red));
 	m_robotTwo->setPen(QPen(Qt::red,m_penWidth));
 	m_robotTwo->setBrush(QBrush(Qt::red));
-	m_pathRobotOne->setZValue(1);
+	//m_pathRobotOne->setZValue(1);
 	m_robotOne->setZValue(2);
-	m_pathRobotTwo->setZValue(1);
+	//m_pathRobotTwo->setZValue(1);
 	m_robotTwo->setZValue(2);
 	m_view.addItem(m_robotOne);
 	m_view.addItem(m_robotTwo);
-	m_view.addItem(m_pathRobotOne);
-	m_view.addItem(m_pathRobotTwo);
 }
 
 Controller::~Controller()
@@ -82,13 +80,13 @@ void Controller::connectPressed()
 void Controller::updateRobotOne()
 {
 	Robot robot = m_model.getRobotOne();
-	updateRobot(robot, *m_robotOne, *m_pathRobotOne);
+	m_pathRobotOne = updateRobot(robot, *m_robotOne, m_pathRobotOne);
 }
 
 void Controller::updateRobotTwo()
 {
 	Robot robot = m_model.getRobotTwo();
-	updateRobot(robot, *m_robotTwo, *m_pathRobotTwo);
+	m_pathRobotTwo = updateRobot(robot, *m_robotTwo, m_pathRobotTwo);
 }
 
 void Controller::updateObstacles()
@@ -105,13 +103,23 @@ void Controller::updateObstacles()
 	}
 }
 
-void Controller::updateRobot(const Robot &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem &robotPathItem)
+QGraphicsPathItem* Controller::updateRobot(const Robot &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem *robotPathItem)
 {
+	if(robotPathItem != 0)
+	{
+		m_view.removeItem(robotPathItem);
+		delete robotPathItem;
+		robotPathItem = 0;
+	}
+
 	if (!robot.isValid())
-		return;
+		return 0;
 
 	QPointF robotPosition = robot.getPosition();
 	double robotRadius = robot.getRadius();
+
+	QRectF robotRect = getRectFrom(robotPosition, robotRadius);
+	robotItem.setRect(robotRect);
 
 	vector<QPointF> route = robot.getRoute();
 	QPolygonF poly;
@@ -121,22 +129,23 @@ void Controller::updateRobot(const Robot &robot, QGraphicsEllipseItem &robotItem
 	pathPen.setWidthF(2*m_model.getRobotOne().getRadius());
 	pathPen.setJoinStyle(Qt::RoundJoin);
 
-	poly << robotPosition;
+	if(route.empty())
+		return 0;
 
+	poly << robotPosition;
 	for(vector<QPointF>::const_iterator iterator = route.begin(); iterator != route.end(); ++iterator)
 	{
 		QPointF pathPoint = *iterator;
 		poly << pathPoint;
 	}
 
+	robotPathItem = new QGraphicsPathItem();
 	path.addPolygon(poly);
-
-	robotPathItem.setPen(pathPen);
-	robotPathItem.setBrush(QBrush(Qt::transparent));
-	robotPathItem.setPath(path);
-
-	QRectF robotRect = getRectFrom(robotPosition, robotRadius);
-	robotItem.setRect(robotRect);
+	robotPathItem->setPen(pathPen);
+	robotPathItem->setBrush(QBrush(Qt::transparent));
+	robotPathItem->setPath(path);
+	m_view.addItem(robotPathItem);
+	return robotPathItem;
 }
 
 void Controller::updateObstacleCount(size_t desiredCount)
