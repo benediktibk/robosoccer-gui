@@ -63,12 +63,12 @@ void View::appendLogMessage(QString const &message)
 
 QString View::getIpAdress() const
 {
-	return m_ui->plainTextEditIp->toPlainText();
+	return m_ui->lineEditIp->text();
 }
 
 unsigned int View::getPort() const
 {
-	return m_ui->plainTextEditPort->toPlainText().toUInt();
+	return m_ui->lineEditPort->text().toUInt();
 }
 
 void View::addItem(QGraphicsItem *item)

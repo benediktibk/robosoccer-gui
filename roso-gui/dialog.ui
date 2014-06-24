@@ -40,14 +40,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEditIp">
+        <widget class="QLineEdit" name="lineEditIp">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>130</width>
            <height>30</height>
           </size>
          </property>
-         <property name="plainText">
+         <property name="text">
           <string>localhost</string>
          </property>
         </widget>
@@ -71,14 +77,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEditPort">
+        <widget class="QLineEdit" name="lineEditPort">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>60</width>
            <height>30</height>
           </size>
          </property>
-         <property name="plainText">
+         <property name="text">
           <string>1234</string>
          </property>
         </widget>
