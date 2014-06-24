@@ -9,6 +9,7 @@ class Model;
 class Connection;
 class Robot;
 class QGraphicsEllipseItem;
+class QGraphicsPathItem;
 class QRectF;
 class QPointF;
 
@@ -31,7 +32,7 @@ public slots:
 	void updateObstacles();
 
 private:
-	void updateRobot(Robot const &robot, QGraphicsEllipseItem &robotItem);
+	void updateRobot(Robot const &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem &robotPathItem);
 	void updateObstacleCount(size_t desiredCount);
 	QRectF getRectFrom(QPointF const &position, double radius);
 
@@ -41,7 +42,10 @@ private:
 	Connection &m_connection;
 	QGraphicsEllipseItem *m_robotOne;
 	QGraphicsEllipseItem *m_robotTwo;
+	QGraphicsPathItem *m_pathRobotOne;
+	QGraphicsPathItem *m_pathRobotTwo;
 	std::vector<QGraphicsEllipseItem*> m_obstacles;
+	double m_penWidth;
 };
 
 #endif
