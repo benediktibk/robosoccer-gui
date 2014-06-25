@@ -47,14 +47,20 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
-           <width>130</width>
+           <width>150</width>
            <height>30</height>
           </size>
          </property>
          <property name="text">
-          <string>localhost</string>
+          <string>129.187.151.94</string>
          </property>
         </widget>
        </item>
