@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>602</width>
-    <height>454</height>
+    <width>655</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,11 +29,6 @@
            <height>30</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
          <property name="text">
           <string>IP - Address:</string>
          </property>
@@ -47,9 +42,15 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
-           <width>130</width>
+           <width>150</width>
            <height>30</height>
           </size>
          </property>
@@ -66,11 +67,6 @@
            <height>30</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
          <property name="text">
           <string>Port:</string>
          </property>
@@ -84,9 +80,15 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
-           <width>60</width>
+           <width>80</width>
            <height>30</height>
           </size>
          </property>
@@ -581,6 +583,12 @@
      </item>
      <item>
       <widget class="QPlainTextEdit" name="plainTextEditLog">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>100</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
