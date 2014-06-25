@@ -131,16 +131,39 @@ Robot Connection::parseRobot(bool &error)
 		return Robot();
 
 	vector<QPointF> route;
-	for (int i = 2; i < m_currentBlock.size(); ++i)
+	bool targetsFound = false;
+	int currentPosition;
+	for (currentPosition = 2; currentPosition < m_currentBlock.size() && !targetsFound; ++currentPosition)
 	{
-		QString const &line = m_currentBlock.at(i);
+		QString const &line = m_currentBlock.at(currentPosition);
+
+		if (line == "targets:")
+		{
+			targetsFound = true;
+			continue;
+		}
+
 		QPointF point = parsePoint(line, error);
 		if (error)
 			return Robot();
 		route.push_back(point);
 	}
 
-	return Robot(route, width);
+	if (!targetsFound)
+		return Robot();
+
+	vector<QPointF> targets;
+	for (; currentPosition < m_currentBlock.size(); ++currentPosition)
+	{
+		QString const &line = m_currentBlock.at(currentPosition);
+
+		QPointF point = parsePoint(line, error);
+		if (error)
+			return Robot();
+		targets.push_back(point);
+	}
+
+	return Robot(route, width, targets);
 }
 
 QPointF Connection::parsePoint(const QString &string, bool &error)

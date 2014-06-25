@@ -6,9 +6,10 @@ using namespace std;
 Robot::Robot()
 { }
 
-Robot::Robot(const vector<QPointF> &route, double radius):
+Robot::Robot(const vector<QPointF> &route, double radius, const vector<QPointF> &targets):
 	m_route(route),
-	m_radius(radius)
+	m_radius(radius),
+	m_targets(targets)
 { }
 
 bool Robot::isValid() const
@@ -25,6 +26,11 @@ QPointF Robot::getPosition() const
 vector<QPointF> Robot::getRoute() const
 {
 	return m_route;
+}
+
+vector<QPointF> Robot::getTargets() const
+{
+	return m_targets;
 }
 
 double Robot::getRadius() const
