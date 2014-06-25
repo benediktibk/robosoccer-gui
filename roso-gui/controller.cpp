@@ -29,9 +29,7 @@ Controller::Controller(View &view, Model &model, Connection &connection) :
 	m_robotOne->setBrush(QBrush(Qt::red));
 	m_robotTwo->setPen(QPen(Qt::red,m_penWidth));
 	m_robotTwo->setBrush(QBrush(Qt::red));
-	//m_pathRobotOne->setZValue(1);
 	m_robotOne->setZValue(2);
-	//m_pathRobotTwo->setZValue(1);
 	m_robotTwo->setZValue(2);
 	m_view.addItem(m_robotOne);
 	m_view.addItem(m_robotTwo);
