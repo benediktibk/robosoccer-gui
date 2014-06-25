@@ -49,7 +49,8 @@ private slots:
 private:
 	Ui::Dialog *m_ui;
 	QGraphicsScene *m_scene;
-	double m_penWidth;
+	const double m_penWidth;
+	const QRectF m_boundingRectangle;
 };
 
 #endif

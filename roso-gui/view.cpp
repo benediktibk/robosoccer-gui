@@ -14,7 +14,8 @@ using namespace std;
 View::View() :
 	m_ui(new Ui::Dialog),
 	m_scene(new QGraphicsScene),
-	m_penWidth(0.01)
+	m_penWidth(0.01),
+	m_boundingRectangle(QPointF(-1.7, -1), QPointF(1.7, 1))
 {
 	m_ui->setupUi(this);
 	m_ui->viewField->setScene(m_scene);
@@ -93,10 +94,7 @@ void View::showEvent(QShowEvent *)
 
 void View::fitWholeAreaInView()
 {
-	QRectF sceneRect = m_scene->sceneRect();
-	sceneRect.setWidth(sceneRect.width()*1.1);
-	sceneRect.setHeight(sceneRect.height()*1.1);
-	m_ui->viewField->fitInView(sceneRect, Qt::KeepAspectRatio);
+	m_ui->viewField->fitInView(m_boundingRectangle, Qt::KeepAspectRatio);
 }
 
 void View::drawPitch()
