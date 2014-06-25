@@ -32,9 +32,15 @@ public slots:
 	void updateObstacles();
 
 private:
-	QGraphicsPathItem *updateRobot(Robot const &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem *robotPathItem);
+	QGraphicsPathItem *updateRobot(
+			Robot const &robot, QGraphicsEllipseItem &robotItem,
+			QGraphicsPathItem *robotPathItem, std::vector<QGraphicsEllipseItem*> &targetItems,
+			Qt::GlobalColor color);
 	void updateObstacleCount(size_t desiredCount);
 	QRectF getRectFrom(QPointF const &position, double radius);
+
+private:
+	void updateTargetCount(std::vector<QGraphicsEllipseItem*> &targetItems, size_t desiredCount, Qt::GlobalColor color) const;
 
 private:
 	View &m_view;
@@ -44,8 +50,12 @@ private:
 	QGraphicsEllipseItem *m_robotTwo;
 	QGraphicsPathItem *m_pathRobotOne;
 	QGraphicsPathItem *m_pathRobotTwo;
+	std::vector<QGraphicsEllipseItem*> m_targetsRobotOne;
+	std::vector<QGraphicsEllipseItem*> m_targetsRobotTwo;
 	std::vector<QGraphicsEllipseItem*> m_obstacles;
-	double m_penWidth;
+	const double m_penWidth;
+	const Qt::GlobalColor m_robotOneColor;
+	const Qt::GlobalColor m_robotTwoColor;
 };
 
 #endif

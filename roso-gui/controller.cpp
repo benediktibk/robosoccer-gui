@@ -15,7 +15,9 @@ Controller::Controller(View &view, Model &model, Connection &connection) :
 	m_robotTwo(new QGraphicsEllipseItem()),
 	m_pathRobotOne(0),
 	m_pathRobotTwo(0),
-	m_penWidth(0.01)
+	m_penWidth(0.01),
+	m_robotOneColor(Qt::red),
+	m_robotTwoColor(Qt::magenta)
 {
 	QObject::connect(&m_connection, SIGNAL(dataArrived(QString)), this, SLOT(appendLogMessages(QString)));
 	QObject::connect(&m_connection, SIGNAL(connectionEstablished()), this, SLOT(connectionEstablished()));
@@ -25,10 +27,10 @@ Controller::Controller(View &view, Model &model, Connection &connection) :
 	QObject::connect(&m_model, SIGNAL(robotTwoChanged()), this, SLOT(updateRobotTwo()));
 	QObject::connect(&m_model, SIGNAL(obstaclesChanged()), this, SLOT(updateObstacles()));
 
-	m_robotOne->setPen(QPen(Qt::red,m_penWidth));
-	m_robotOne->setBrush(QBrush(Qt::red));
-	m_robotTwo->setPen(QPen(Qt::red,m_penWidth));
-	m_robotTwo->setBrush(QBrush(Qt::red));
+	m_robotOne->setPen(QPen(m_robotOneColor, m_penWidth));
+	m_robotOne->setBrush(QBrush(m_robotOneColor));
+	m_robotTwo->setPen(QPen(m_robotTwoColor, m_penWidth));
+	m_robotTwo->setBrush(QBrush(m_robotTwoColor));
 	m_robotOne->setZValue(2);
 	m_robotTwo->setZValue(2);
 	m_view.addItem(m_robotOne);
@@ -46,6 +48,8 @@ Controller::~Controller()
 	m_robotTwo = 0;
 
 	updateObstacleCount(0);
+	updateTargetCount(m_targetsRobotOne, 0, m_robotOneColor);
+	updateTargetCount(m_targetsRobotTwo, 0, m_robotTwoColor);
 }
 
 void Controller::appendLogMessages(QString message)
@@ -78,13 +82,13 @@ void Controller::connectPressed()
 void Controller::updateRobotOne()
 {
 	Robot robot = m_model.getRobotOne();
-	m_pathRobotOne = updateRobot(robot, *m_robotOne, m_pathRobotOne);
+	m_pathRobotOne = updateRobot(robot, *m_robotOne, m_pathRobotOne, m_targetsRobotOne, m_robotOneColor);
 }
 
 void Controller::updateRobotTwo()
 {
 	Robot robot = m_model.getRobotTwo();
-	m_pathRobotTwo = updateRobot(robot, *m_robotTwo, m_pathRobotTwo);
+	m_pathRobotTwo = updateRobot(robot, *m_robotTwo, m_pathRobotTwo, m_targetsRobotTwo, m_robotTwoColor);
 }
 
 void Controller::updateObstacles()
@@ -101,7 +105,9 @@ void Controller::updateObstacles()
 	}
 }
 
-QGraphicsPathItem* Controller::updateRobot(const Robot &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem *robotPathItem)
+QGraphicsPathItem* Controller::updateRobot(
+		const Robot &robot, QGraphicsEllipseItem &robotItem, QGraphicsPathItem *robotPathItem,
+		vector<QGraphicsEllipseItem*> &targetItems, Qt::GlobalColor color)
 {
 	if(robotPathItem != 0)
 	{
@@ -118,6 +124,16 @@ QGraphicsPathItem* Controller::updateRobot(const Robot &robot, QGraphicsEllipseI
 
 	QRectF robotRect = getRectFrom(robotPosition, robotRadius);
 	robotItem.setRect(robotRect);
+
+	vector<QPointF> targets = robot.getTargets();
+	updateTargetCount(targetItems, targets.size(), color);
+	for(size_t i = 0; i < targets.size(); ++i)
+	{
+		QPointF const &target = targets[i];
+		QGraphicsEllipseItem &targetItem = *(targetItems[i]);
+		QRectF targetRect = getRectFrom(target, 0.01);
+		targetItem.setRect(targetRect);
+	}
 
 	vector<QPointF> route = robot.getRoute();
 	QPolygonF poly;
@@ -174,4 +190,27 @@ QRectF Controller::getRectFrom(const QPointF &position, double radius)
 	QPointF topLeft = position - QPointF(radius, radius);
 	QPointF bottomRight = position + QPointF(radius, radius);
 	return QRectF(topLeft, bottomRight);
+}
+
+void Controller::updateTargetCount(vector<QGraphicsEllipseItem *> &targetItems, size_t desiredCount, Qt::GlobalColor color) const
+{
+	targetItems.reserve(desiredCount);
+
+	while (desiredCount > targetItems.size())
+	{
+		QGraphicsEllipseItem *target = new QGraphicsEllipseItem();
+		target->setPen(QPen(color, m_penWidth));
+		target->setBrush(QBrush(color));
+		target->setZValue(3);
+		m_view.addItem(target);
+		targetItems.push_back(target);
+	}
+
+	while (desiredCount < targetItems.size())
+	{
+		QGraphicsEllipseItem *target = targetItems.back();
+		m_view.removeItem(target);
+		delete target;
+		targetItems.pop_back();
+	}
 }
