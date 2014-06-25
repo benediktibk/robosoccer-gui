@@ -127,10 +127,9 @@ QGraphicsPathItem* Controller::updateRobot(const Robot &robot, QGraphicsEllipseI
 	pathPen.setWidthF(2*m_model.getRobotOne().getRadius());
 	pathPen.setJoinStyle(Qt::RoundJoin);
 
-	if(route.empty())
+	if(route.size() <= 1)
 		return 0;
 
-	poly << robotPosition;
 	for(vector<QPointF>::const_iterator iterator = route.begin(); iterator != route.end(); ++iterator)
 	{
 		QPointF pathPoint = *iterator;
@@ -142,6 +141,7 @@ QGraphicsPathItem* Controller::updateRobot(const Robot &robot, QGraphicsEllipseI
 	robotPathItem->setPen(pathPen);
 	robotPathItem->setBrush(QBrush(Qt::transparent));
 	robotPathItem->setPath(path);
+	robotPathItem->setZValue(1);
 	m_view.addItem(robotPathItem);
 	return robotPathItem;
 }
@@ -155,6 +155,7 @@ void Controller::updateObstacleCount(size_t desiredCount)
 		QGraphicsEllipseItem *obstacle = new QGraphicsEllipseItem();
 		obstacle->setPen(QPen(Qt::red,m_penWidth));
 		obstacle->setBrush(QBrush(Qt::black));
+		obstacle->setZValue(2);
 		m_view.addItem(obstacle);
 		m_obstacles.push_back(obstacle);
 	}
