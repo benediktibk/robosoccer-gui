@@ -192,16 +192,14 @@ QRectF Controller::getRectFrom(const QPointF &position, double radius)
 	return QRectF(topLeft, bottomRight);
 }
 
-void Controller::updateTargetCount(vector<QGraphicsEllipseItem *> &targetItems, size_t desiredCount, Qt::GlobalColor color) const
+void Controller::updateTargetCount(vector<QGraphicsEllipseItem*> &targetItems, size_t desiredCount, Qt::GlobalColor color) const
 {
 	targetItems.reserve(desiredCount);
 
 	while (desiredCount > targetItems.size())
 	{
 		QGraphicsEllipseItem *target = new QGraphicsEllipseItem();
-		target->setPen(QPen(color, m_penWidth));
-		target->setBrush(QBrush(color));
-		target->setZValue(3);
+		target->setZValue(4);
 		m_view.addItem(target);
 		targetItems.push_back(target);
 	}
@@ -212,5 +210,15 @@ void Controller::updateTargetCount(vector<QGraphicsEllipseItem *> &targetItems, 
 		m_view.removeItem(target);
 		delete target;
 		targetItems.pop_back();
+	}
+
+	double stepSize = 0.9/targetItems.size();
+	for (size_t i = 0; i < targetItems.size(); ++i)
+	{
+		QGraphicsEllipseItem &targetItem = *(targetItems[i]);
+		QColor colorWithTransparency(color);
+		colorWithTransparency.setAlphaF(0.9 - i*stepSize);
+		targetItem.setPen(QPen(colorWithTransparency, m_penWidth));
+		targetItem.setBrush(QBrush(colorWithTransparency));
 	}
 }
