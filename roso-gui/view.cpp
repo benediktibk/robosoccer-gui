@@ -95,6 +95,7 @@ void View::showEvent(QShowEvent *)
 void View::fitWholeAreaInView()
 {
 	m_ui->viewField->fitInView(m_boundingRectangle, Qt::KeepAspectRatio);
+	m_ui->viewField->centerOn(QPointF(0, 0));
 }
 
 void View::drawPitch()
